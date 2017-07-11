@@ -4,12 +4,7 @@
   <key>meu_ofdm_frame_equalizer_adapt_vcvc</key>
   <category>[meu]</category>
   <import>import meu</import>
-  <make>meu.ofdm_frame_equalizer_adapt_vcvc()</make>
-  <!-- Make one 'param' node for every Parameter you want settable from the GUI.
-       Sub-nodes:
-       * name
-       * key (makes the value accessible as $keyname, e.g. in the make node)
-       * type -->
+  <make>meu.ofdm_frame_equalizer_adapt_vcvc($equalizer, $cp_len, $len_tag_key, $propagate_channel_state, $fixed_frame_len)</make>
 <param>
     <name>FFT length</name>
     <key>fft_len</key>

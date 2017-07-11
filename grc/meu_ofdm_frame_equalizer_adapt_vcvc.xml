@@ -1,0 +1,69 @@
+<?xml version="1.0"?>
+<block>
+  <name>Adaptative OFDM Frame Equalizer</name>
+  <key>meu_ofdm_frame_equalizer_adapt_vcvc</key>
+  <category>[meu]</category>
+  <import>import meu</import>
+  <make>meu.ofdm_frame_equalizer_adapt_vcvc()</make>
+  <!-- Make one 'param' node for every Parameter you want settable from the GUI.
+       Sub-nodes:
+       * name
+       * key (makes the value accessible as $keyname, e.g. in the make node)
+       * type -->
+<param>
+    <name>FFT length</name>
+    <key>fft_len</key>
+    <value>fft_len</value>
+    <type>int</type>
+  </param>
+  <param>
+    <name>CP length</name>
+    <key>cp_len</key>
+    <value>fft_len/4</value>
+    <type>int</type>
+  </param>
+  <param>
+    <name>Equalizer</name>
+    <key>equalizer</key>
+    <type>raw</type>
+  </param>
+  <param>
+    <name>Length Tag Key</name>
+    <key>len_tag_key</key>
+    <type>string</type>
+  </param>
+  <param>
+    <name>Propagate Channel State</name>
+    <key>propagate_channel_state</key>
+    <type>enum</type>
+    <option>
+      <name>Yes</name>
+      <key>True</key>
+    </option>
+    <option>
+      <name>No</name>
+      <key>False</key>
+    </option>
+  </param>
+  <param>
+    <name>Fixed frame length</name>
+    <key>fixed_frame_len</key>
+    <value>0</value>
+    <type>int</type>
+    <hide>#if $fixed_frame_len then 'none' else 'part'#</hide>
+  </param>
+  <sink>
+    <name>in</name>
+    <type>complex</type>
+    <vlen>$fft_len</vlen>
+  </sink>
+  <source>
+    <name>out</name>
+    <type>complex</type>
+    <vlen>$fft_len</vlen>
+  </source>
+    <source>
+    <name>out</name>
+    <type>int</type>
+  </source>
+</block>

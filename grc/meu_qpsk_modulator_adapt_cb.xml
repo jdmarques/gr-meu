@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <block>
-  <name>qpsk_modulator_adapt_cb</name>
+  <name>Adaptative QPSK Modulator</name>
   <key>meu_qpsk_modulator_adapt_cb</key>
-  <category>meu</category>
+  <category>[meu]</category>
   <import>import meu</import>
   <make>meu.qpsk_modulator_adapt_cb()</make>
   <sink>

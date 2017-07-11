@@ -23,5 +23,6 @@
 install(FILES
     api.h
     qpsk_demod_adapt_cb.h
-    qpsk_modulator_adapt_cb.h DESTINATION include/meu
+    qpsk_modulator_adapt_cb.h
+    ofdm_frame_equalizer_adapt_vcvc.h DESTINATION include/meu
 )

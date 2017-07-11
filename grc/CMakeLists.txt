@@ -16,8 +16,8 @@
 # along with GNU Radio; see the file COPYING.  If not, write to
 # the Free Software Foundation, Inc., 51 Franklin Street,
 # Boston, MA 02110-1301, USA.
-
 install(FILES
     meu_qpsk_demod_adapt_cb.xml
-    meu_qpsk_modulator_adapt_cb.xml DESTINATION share/gnuradio/grc/blocks
+    meu_qpsk_modulator_adapt_cb.xml
+    meu_ofdm_frame_equalizer_adapt_vcvc.xml DESTINATION share/gnuradio/grc/blocks
 )

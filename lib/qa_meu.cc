@@ -28,6 +28,7 @@
 #include "qa_meu.h"
 #include "qa_qpsk_demod_adapt_cb.h"
 #include "qa_qpsk_modulator_adapt_cb.h"
+#include "qa_ofdm_frame_equalizer_adapt_vcvc.h"
 
 CppUnit::TestSuite *
 qa_meu::suite()
@@ -35,6 +36,7 @@ qa_meu::suite()
   CppUnit::TestSuite *s = new CppUnit::TestSuite("meu");
   s->addTest(gr::meu::qa_qpsk_demod_adapt_cb::suite());
   s->addTest(gr::meu::qa_qpsk_modulator_adapt_cb::suite());
+  s->addTest(gr::meu::qa_ofdm_frame_equalizer_adapt_vcvc::suite());
 
   return s;
 }

@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<block>
+  <name>qpsk_demod_adapt_cb</name>
+  <key>meu_qpsk_demod_adapt_cb</key>
+  <category>meu</category>
+  <import>import meu</import>
+  <make>meu.qpsk_demod_adapt_cb()</make>
+  <sink>
+    <name>in</name>
+    <type>complex</type>
+  </sink>
+  <sink>
+    <name>phase_offset_ref</name>
+    <type>int</type>
+  </sink>
+  <source>
+    <name>out</name>
+    <type>byte</type>
+  </source>
+</block>

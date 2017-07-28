@@ -43,7 +43,7 @@ namespace gr {
       : gr::block("qpsk_demod_adapt_cb",
               gr::io_signature::make2(2, 2, sizeof(gr_complex), sizeof(int32_t) ),
               gr::io_signature::make(1, 1, sizeof(char)))
-    {}
+    {set_tag_propagation_policy(TPP_ALL_TO_ALL);}
 
     /*
      * Our virtual destructor.
@@ -55,15 +55,17 @@ namespace gr {
     void
     qpsk_demod_adapt_cb_impl::forecast (int noutput_items, gr_vector_int &ninput_items_required)
     {
+      // With this forecast the scheduler knows that it will have the number of output items = to the number of inputs on port 0 and 1 input from port 1 
     	unsigned ninputs = ninput_items_required.size ();
-     	for(unsigned i = 0; i < ninputs; i++)
-      		 ninput_items_required[i] = noutput_items;
+     	
+      		 ninput_items_required[0] = noutput_items;
+           ninput_items_required[1] = noutput_items / noutput_items;
     }
 	unsigned char
     qpsk_demod_adapt_cb_impl::get_minimum_distances(const gr_complex &sample, const int32_t &adapt_ref)
     { 	// bit0 = least significant  || bit1 = most significant 
     	// The constellation representation for each reference is showed to simplify the understanding of the code
-    	if (adapt_ref == 0)
+    	if (adapt_ref == 1)
     	{
 			if (sample.imag() >= 0 and sample.real() >= 0) {
 				return 0x00;
@@ -79,26 +81,10 @@ namespace gr {
 			}
     	}
 
-    	else if (adapt_ref == 1){
+    	else if (adapt_ref == 2){
 
     		if (sample.imag() >= 0 and sample.real() >= 0) {
-				return 0x03;
-			}
-			else if (sample.imag() >= 0 and sample.real() < 0) {
 				return 0x02;
-			}
-			else if (sample.imag() < 0 and sample.real() < 0) {
-	  			return 0x00;
-			}
-			else if (sample.imag() < 0 and sample.real() >= 0) {
-	  			return 0x01;
-			}
-
-    	}
-
-		else if (adapt_ref == 2){
-    		if (sample.imag() >= 0 and sample.real() >= 0) {
-				return 0x01;
 			}
 			else if (sample.imag() >= 0 and sample.real() < 0) {
 				return 0x00;
@@ -107,16 +93,32 @@ namespace gr {
 	  			return 0x03;
 			}
 			else if (sample.imag() < 0 and sample.real() >= 0) {
+	  			return 0x01;
+			}
+
+    	}
+
+		else if (adapt_ref == 3){
+    		if (sample.imag() >= 0 and sample.real() >= 0) {
+				return 0x01;
+			}
+			else if (sample.imag() >= 0 and sample.real() < 0) {
+				return 0x03;
+			}
+			else if (sample.imag() < 0 and sample.real() < 0) {
+	  			return 0x00;
+			}
+			else if (sample.imag() < 0 and sample.real() >= 0) {
 	  			return 0x02;
 			}
 
 		}
-    	else if (adapt_ref == 3){
+    	else if (adapt_ref == 4){
     		if (sample.imag() >= 0 and sample.real() >= 0) {
-				return 0x02;
+				return 0x03;
 			}
 			else if (sample.imag() >= 0 and sample.real() < 0) {
-				return 0x03;
+				return 0x02;
 			}
 			else if (sample.imag() < 0 and sample.real() < 0) {
 	  			return 0x01;
@@ -146,7 +148,9 @@ namespace gr {
       }
       // Tell runtime system how many input items we consumed on
       // each input stream.
-      consume_each (noutput_items);
+      // O consume vai consumir n outputs no porto 0 e apenas 1 no porto 1 (referência)
+      consume(0 ,noutput_items);
+      consume(1 ,1);
 
       // Tell runtime system how many output items we produced.
       return noutput_items;

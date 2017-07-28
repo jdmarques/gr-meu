@@ -27,7 +27,8 @@ link_directories(${Boost_LIBRARY_DIRS})
 list(APPEND meu_sources
     qpsk_demod_adapt_cb_impl.cc
     qpsk_modulator_adapt_cb_impl.cc
-    ofdm_frame_equalizer_adapt_vcvc_impl.cc )
+    phase_finder_vci_impl.cc
+    )
 
 set(meu_sources "${meu_sources}" PARENT_SCOPE)
 if(NOT meu_sources)
@@ -63,7 +64,7 @@ include_directories(${CPPUNIT_INCLUDE_DIRS})
 list(APPEND test_meu_sources
     ${CMAKE_CURRENT_SOURCE_DIR}/test_meu.cc
     ${CMAKE_CURRENT_SOURCE_DIR}/qa_meu.cc
-    ${CMAKE_CURRENT_SOURCE_DIR}/qa_ofdm_frame_equalizer_adapt_vcvc.cc
+    ${CMAKE_CURRENT_SOURCE_DIR}/qa_phase_finder_vci.cc
     ${CMAKE_CURRENT_SOURCE_DIR}/qa_qpsk_modulator_adapt_cb.cc
     ${CMAKE_CURRENT_SOURCE_DIR}/qa_qpsk_demod_adapt_cb.cc
 )

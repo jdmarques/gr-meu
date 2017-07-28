@@ -11,7 +11,7 @@
 %{
 #include "meu/qpsk_demod_adapt_cb.h"
 #include "meu/qpsk_modulator_adapt_cb.h"
-#include "meu/ofdm_frame_equalizer_adapt_vcvc.h"
+#include "meu/phase_finder_vci.h"
 %}
 
 
@@ -20,5 +20,7 @@ GR_SWIG_BLOCK_MAGIC2(meu, qpsk_demod_adapt_cb);
 %include "meu/qpsk_modulator_adapt_cb.h"
 GR_SWIG_BLOCK_MAGIC2(meu, qpsk_modulator_adapt_cb);
 
-%include "meu/ofdm_frame_equalizer_adapt_vcvc.h"
-GR_SWIG_BLOCK_MAGIC2(meu, ofdm_frame_equalizer_adapt_vcvc);
+
+%include "meu/phase_finder_vci.h"
+GR_SWIG_BLOCK_MAGIC2(meu, phase_finder_vci);
+

@@ -43,7 +43,7 @@ namespace gr {
       : gr::block("qpsk_modulator_adapt_cb",
               gr::io_signature::make2(2, 2, sizeof(char), sizeof(int32_t) ),
               gr::io_signature::make(1, 1, sizeof(gr_complex)))
-    {}
+    {set_tag_propagation_policy(TPP_ALL_TO_ALL);}
 
     /*
      * Our virtual destructor.
@@ -56,119 +56,120 @@ namespace gr {
     qpsk_modulator_adapt_cb_impl::forecast (int noutput_items, gr_vector_int &ninput_items_required)
     {
     	unsigned ninputs = ninput_items_required.size ();
-     	for(unsigned i = 0; i < ninputs; i++)
-      		 ninput_items_required[i] = noutput_items;
+
+      		 ninput_items_required[0] = noutput_items ;
+             ninput_items_required[1] = noutput_items / noutput_items;
     }
 
     gr_complex
     qpsk_modulator_adapt_cb_impl::map_into_constellation(const char &sample, const int32_t &adapt_ref)
     {
     	gr_complex tmp;
-    	if (adapt_ref == 0)
+    	if (adapt_ref == 1)
     	{
     		if (sample == 0)
     		{
-    			tmp.imag() = sqrt(2)/2;
-    			tmp.real() = sqrt(2)/2;
+    			tmp.imag(sqrt(2)/2);
+    			tmp.real(sqrt(2)/2);
     			return tmp;
     		}
     		else if (sample == 1)
     		{
-    			tmp.imag() = sqrt(2)/2;
-    			tmp.real() = -sqrt(2)/2;
-    			return tmp;
-    		}
-    		else if (sample == 2)
-    		{
-    			tmp.imag() = -sqrt(2)/2;
-    			tmp.real() = -sqrt(2)/2;
+    			tmp.imag(sqrt(2)/2)  ;
+    			tmp.real(-sqrt(2)/2)  ;
     			return tmp;
     		}
     		else if (sample == 3)
     		{
-    			tmp.imag() = -sqrt(2)/2;
-    			tmp.real() = sqrt(2)/2;
-    			return tmp;
-    		}
-    	}
-    	  	else if (adapt_ref == 1)
-    	{
-    		if (sample == 3)
-    		{
-    			tmp.imag() = sqrt(2)/2;
-    			tmp.real() = sqrt(2)/2;
+    			tmp.imag(-sqrt(2)/2) ;
+    			tmp.real(-sqrt(2)/2) ;
     			return tmp;
     		}
     		else if (sample == 2)
     		{
-    			tmp.imag() = sqrt(2)/2;
-    			tmp.real() = -sqrt(2)/2;
-    			return tmp;
-    		}
-    		else if (sample == 0)
-    		{
-    			tmp.imag() = -sqrt(2)/2;
-    			tmp.real() = -sqrt(2)/2;
-    			return tmp;
-    		}
-    		else if (sample == 1)
-    		{
-    			tmp.imag() = -sqrt(2)/2;
-    			tmp.real() = sqrt(2)/2;
+    			tmp.imag(-sqrt(2)/2) ;
+    			tmp.real(sqrt(2)/2) ;
     			return tmp;
     		}
     	}
     	  	else if (adapt_ref == 2)
     	{
-    		if (sample == 1)
+    		if (sample == 2)
     		{
-    			tmp.imag() = sqrt(2)/2;
-    			tmp.real() = sqrt(2)/2;
+    			tmp.imag(sqrt(2)/2) ;
+    			tmp.real(sqrt(2)/2) ;
     			return tmp;
     		}
     		else if (sample == 0)
     		{
-    			tmp.imag() = sqrt(2)/2;
-    			tmp.real() = -sqrt(2)/2;
-    			return tmp;
-    		}
-    		else if (sample == 3)
-    		{
-    			tmp.imag() = -sqrt(2)/2;
-    			tmp.real() = -sqrt(2)/2;
-    			return tmp;
-    		}
-    		else if (sample == 2)
-    		{
-    			tmp.imag() = -sqrt(2)/2;
-    			tmp.real() = sqrt(2)/2;
-    			return tmp;
-    		}
-    	}
-    	  else if (adapt_ref == 3)
-    	{
-    		if (sample == 2)
-    		{
-    			tmp.imag() = sqrt(2)/2;
-    			tmp.real() = sqrt(2)/2;
-    			return tmp;
-    		}
-    		else if (sample == 3)
-    		{
-    			tmp.imag() = sqrt(2)/2;
-    			tmp.real() = -sqrt(2)/2;
+    			tmp.imag(sqrt(2)/2) ;
+    			tmp.real(-sqrt(2)/2) ;
     			return tmp;
     		}
     		else if (sample == 1)
     		{
-    			tmp.imag() = -sqrt(2)/2;
-    			tmp.real() = -sqrt(2)/2;
+    			tmp.imag(-sqrt(2)/2) ;
+    			tmp.real(-sqrt(2)/2) ;
+    			return tmp;
+    		}
+    		else if (sample == 3)
+    		{
+    			tmp.imag(-sqrt(2)/2) ;
+    			tmp.real(sqrt(2)/2) ;
+    			return tmp;
+    		}
+    	}
+    	  	else if (adapt_ref == 3)
+    	{
+    		if (sample == 1)
+    		{
+    			tmp.imag(sqrt(2)/2) ;
+    			tmp.real(sqrt(2)/2) ;
+    			return tmp;
+    		}
+    		else if (sample == 3)
+    		{
+    			tmp.imag(sqrt(2)/2) ;
+    			tmp.real(-sqrt(2)/2) ;
+    			return tmp;
+    		}
+    		else if (sample == 2)
+    		{
+    			tmp.imag(-sqrt(2)/2) ;
+    			tmp.real(-sqrt(2)/2) ;
     			return tmp;
     		}
     		else if (sample == 0)
     		{
-    			tmp.imag() = -sqrt(2)/2;
-    			tmp.real() = sqrt(2)/2;
+    			tmp.imag(-sqrt(2)/2) ;
+    			tmp.real(sqrt(2)/2) ;
+    			return tmp;
+    		}
+    	}
+    	  else if (adapt_ref == 4)
+    	{
+    		if (sample == 3)
+    		{
+    			tmp.imag(sqrt(2)/2) ;
+    			tmp.real(sqrt(2)/2) ;
+    			return tmp;
+    		}
+    		else if (sample == 2)
+    		{
+    			tmp.imag(sqrt(2)/2) ;
+    			tmp.real(-sqrt(2)/2) ;
+    			return tmp;
+    		}
+    		else if (sample == 0)
+    		{
+    			tmp.imag(-sqrt(2)/2) ;
+    			tmp.real(-sqrt(2)/2) ;
+    			return tmp;
+    		}
+    		else if (sample == 1)
+    		{
+    			tmp.imag(-sqrt(2)/2) ;
+    			tmp.real(sqrt(2)/2) ;
     			return tmp;
     		}
     	}
@@ -190,7 +191,8 @@ namespace gr {
       	out[i] = map_into_constellation(in0[i], in1[i]);
       }
 
-      consume_each (noutput_items);
+      consume(0,noutput_items);
+      consume(1,1);
 
       // Tell runtime system how many output items we produced.
       return noutput_items;
